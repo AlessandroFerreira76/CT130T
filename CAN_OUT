@@ -18,20 +18,20 @@ END_IF
 // Mapeamento dos ADCs para o ID 1A02AF01
 
 ArrayTx[0] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_00.VALUE) / 20)  );		// TEMP. TANQ. RESERVATORIO 
-ArrayTx[1] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_01.VALUE) / 20)  ); 	// EMPERATURA DO MOTOR
-ArrayTx[2] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_02.VALUE) / 20)  ); 	// Freio do Caminhao ESQUERDO/Dianteiro
+ArrayTx[1] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_01.VALUE) / 20)  ); 		// EMPERATURA DO MOTOR
+ArrayTx[2] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_02.VALUE) / 20)  ); 		// Freio do Caminhao ESQUERDO/Dianteiro
 ArrayTx[3] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_03.VALUE) / 20)  );		// Freio do Caminhao DIREITO/Traseiro
 ArrayTx[4] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_04.VALUE) / 20)  );		// Freio do Caminhao ESTACIONARIO
-ArrayTx[5] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_05.VALUE) / 20)  ); 	// Freio do PRANCHA ESQUERDO
-ArrayTx[6] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_06.VALUE) / 20)  ); 	// Freio do PRANCHA DIREITO
+ArrayTx[5] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_05.VALUE) / 20)  ); 		// Freio do PRANCHA ESQUERDO
+ArrayTx[6] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_06.VALUE) / 20)  ); 		// Freio do PRANCHA DIREITO
 ArrayTx[7] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_07.VALUE) / 20) );		// Freio do PRANCHA ESTACIONARIO
 CanTx_01(iEnable:=TRUE, iCAN := ADR(GVL.GtCAN3), iForceSend := TRUE, iTransmitRate := T#50MS, iCanId := 16#1A02AF01, iCanIdExtended := TRUE, iByteCount := 8, iData := ArrayTx);
 
 	
 // Mapeamento dos ADCs para o ID 1A02AF02
-// Bytes 0-1: ADC_04.VALUE | Bytes 2-3: ADC_05.VALUE | Bytes 4-5: ADC_06.VALUE | Bytes 6-7: ADC_07.VALUE
+// --------------------------------------------------------------------------------------------------------
 ArrayTx[0] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_08.VALUE) / 20)  );		// Cilindro da Prancha Esquerdo
-ArrayTx[1] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_09.VALUE) / 20)  ); 	// Cilindro da Prancha Direito
+ArrayTx[1] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_09.VALUE) / 20)  ); 		// Cilindro da Prancha Direito
 ArrayTx[2] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.ADC_10.VALUE) / 20)  ); 	// TRANSDUTOR DE VAZÃO
 ArrayTx[3] := BOOL_TO_BYTE(GVL.DIN_00.pin_value) OR				// NIVEL OLEO 1
               SHL(BOOL_TO_BYTE(GVL.DIN_01.pin_value), 1) OR		// NIVEL OLEO 2
@@ -55,6 +55,7 @@ ArrayTx[7] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.DIN_15.value) / 20)  ); 	// Modo T
 CanTx_02(iEnable:=TRUE, iCAN := ADR(GVL.GtCAN3), iForceSend := TRUE, iTransmitRate := T#50MS, iCanId := 16#1A02AF02, iCanIdExtended := TRUE, iByteCount := 8, iData := ArrayTx);
 
 // Mapeamento dos ADCs para o ID 1A02AF03
+// --------------------------------------------------------------------------------------------------------
 ArrayTx[0] := REAL_TO_BYTE((DWORD_TO_REAL(GVL.DIN_16.value) / 20)  );	// MODO CARGA/DESCARGA
 ArrayTx[1] := 0; 	
 ArrayTx[2] := 0; 
