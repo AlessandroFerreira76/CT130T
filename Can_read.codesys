@@ -10,11 +10,10 @@ VAR
 	fbCanRxId1A02AF01	: CanRx;
 	fbCanRxId1A02AF02	: CanRx;              	(* Function block to get one CAN message*)	
 	fbCanRxId1A02AF03	: CanRx;
-	fbCanRxId1A02AF04	: CanRx;	
-	
-
+	fbCanRxId1A02AF04	: CanRx;
     
 END_VAR
+// Fim Declaração das Variaveis
 *)
 // --------------------------------------------------------------------------------------------------------------------------------------
 // --------------------------------------------------------------------------------------------------------------------------------------
