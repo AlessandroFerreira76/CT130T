@@ -1,0 +1,210 @@
+(*
+PROGRAM CanRead
+VAR
+	// -- SAIDAS/ACIOANAMENTOS 	16#1A00AF01 (23 Saidas)
+	fbCanRxId1A00AF01  	: CanRx;              	(* Function block to get one CAN message*)
+	fbCanRxId1A00AF02  	: CanRx;              	(* Function block to get one CAN message*)
+	fbCanRxId1A00AF03	: CanRx;              	(* Function block to get one CAN message*)
+	
+	// -- ENTRADAS/SENSORES 	16#1A02AF01	(28 Entradas)
+	fbCanRxId1A02AF01	: CanRx;
+	fbCanRxId1A02AF02	: CanRx;              	(* Function block to get one CAN message*)	
+	fbCanRxId1A02AF03	: CanRx;
+	fbCanRxId1A02AF04	: CanRx;	
+	
+
+    
+END_VAR
+*)
+// --------------------------------------------------------------------------------------------------------------------------------------
+// --------------------------------------------------------------------------------------------------------------------------------------
+//     _________________________________________________  SAIDAS ACIONAMENTOS  _______________________________________________________
+// ______________________________________________________________________________________________________________________________________
+
+fbCanRxId1A00AF01(	iCAN				:= ADR(GVL.gCan1),  						(* Structure for sending / receiving CAN messages *)
+					iCanId				:= 16#1A00AF01,								(* CAN Id of receiving message *) 
+					iCanIdExtended		:= TRUE,  									(* Standard CAN Frame *)
+					iTimeoutLimit		:= T#500MS,									(* Timeout after 500ms - Flag will be set *) 
+					oByteCount			=> , 
+					oData				=> , 
+					oNewData			=> , 
+					oCanTimeout			=> , 
+					oReceiverId			=> , 
+					oTooManyReceivers	=> );	
+
+IF (fbCanRxId1A00AF01.oNewData) THEN													(* If new CAN data is available *)
+	Saidas[0]	:= BYTE_TO_UDINT(fbCanRxId1A00AF01.oData[0]);	// FreioEsqPrancha_1
+	Saidas[1] 	:= BYTE_TO_UDINT(fbCanRxId1A00AF01.oData[1]);	// FreioDirPrancha_1	
+	Saidas[2] 	:= BYTE_TO_UDINT(fbCanRxId1A00AF01.oData[2]);	// FreioEstPrancha_1
+	Saidas[3] 	:= BYTE_TO_UDINT(fbCanRxId1A00AF01.oData[3]);	// FreioEsqPrancha_2
+	Saidas[4]	:= BYTE_TO_UDINT(fbCanRxId1A00AF01.oData[4]);	// FreioDirPrancha_2
+	Saidas[5]	:= BYTE_TO_UDINT(fbCanRxId1A00AF01.oData[5]);	// FreioEstPrancha_2
+	Saidas[6]	:= BYTE_TO_UDINT(fbCanRxId1A00AF01.oData[6]);	// SobePranchaEsq
+	Saidas[7]	:= BYTE_TO_UDINT(fbCanRxId1A00AF01.oData[7]);	// DescePranchaEsq
+			
+ELSIF fbCanRxId1A00AF01.oCanTimeout THEN												(* If timeout flag is enabled set the label value to 0 *)
+	Saidas[0] 	:= 0;
+	Saidas[1]	:= 0;	
+	Saidas[2]	:= 0;
+	Saidas[3]	:= 0;
+	Saidas[4]  := 0;
+	Saidas[5]  := 0;
+	Saidas[6]	:= 0;
+	Saidas[7]	:= 0;
+END_IF // End 1A00AF01
+// --------------------------------------------------------------------------------------------------------------------------------------
+
+fbCanRxId1A00AF02(	iCAN				:= ADR(GVL.gCan1),  						(* Structure for sending / receiving CAN messages *)
+					iCanId				:= 16#1A00AF02,								(* CAN Id of receiving message *) 
+					iCanIdExtended		:= TRUE,  									(* Standard CAN Frame *)
+					iTimeoutLimit		:= T#500MS,									(* Timeout after 500ms - Flag will be set *) 
+					oByteCount			=> , 
+					oData				=> , 
+					oNewData			=> , 
+					oCanTimeout			=> , 
+					oReceiverId			=> , 
+					oTooManyReceivers	=> );	
+
+IF (fbCanRxId1A00AF02.oNewData) THEN													(* If new CAN data is available *)
+	Saidas[8] 		:= BYTE_TO_UDINT(fbCanRxId1A00AF02.oData[0]);	// DescePranchaEsq
+	Saidas[9] 		:= BYTE_TO_UDINT(fbCanRxId1A00AF02.oData[1]);	// DescePranchaDir	
+	Saidas[10]		:= BYTE_TO_UDINT(fbCanRxId1A00AF02.oData[2]);	// LuzServico	
+	Saidas[11]		:= BYTE_TO_UDINT(fbCanRxId1A00AF02.oData[3]);	// AtivaRadio
+	Saidas[12]		:= BYTE_TO_UDINT(fbCanRxId1A00AF02.oData[4]);	// Vazao
+	Saidas[13]		:= BYTE_TO_UDINT(fbCanRxId1A00AF02.oData[5]);	// Ventilador_1_SH
+	Saidas[14]		:= BYTE_TO_UDINT(fbCanRxId1A00AF02.oData[6]);	// Ventilador_2_SH
+	Saidas[15]		:= BYTE_TO_UDINT(fbCanRxId1A00AF02.oData[7]);	// Ventilador_3_SH
+			
+ELSIF fbCanRxId1A00AF02.oCanTimeout THEN												(* If timeout flag is enabled set the label value to 0 *)
+	Saidas[8] 		:= 0;
+	Saidas[9]		:= 0;	
+	Saidas[10]		:= 0;
+	Saidas[11]		:= 0;
+	Saidas[12]		:= 0;
+	Saidas[13]	   	:= 0;
+	Saidas[14]		:= 0;
+	Saidas[15]		:= 0;
+END_IF
+// --------------------------------------------------------------------------------------------------------------------------------------
+// ______________________________________________________________________________________________________________________________________
+// ______________________________________________________________________________________________________________________________________
+
+
+fbCanRxId1A00AF03(	iCAN				:= ADR(GVL.gCan1),  						(* Structure for sending / receiving CAN messages *)
+					iCanId				:= 16#1A00AF03,								(* CAN Id of receiving message *) 
+					iCanIdExtended		:= TRUE,  									(* Standard CAN Frame *)
+					iTimeoutLimit		:= T#500MS,									(* Timeout after 500ms - Flag will be set *) 
+					oByteCount			=> , 
+					oData				=> , 
+					oNewData			=> , 
+					oCanTimeout			=> , 
+					oReceiverId			=> , 
+					oTooManyReceivers	=> );	
+
+IF (fbCanRxId1A00AF03.oNewData) THEN													(* If new CAN data is available *)
+	Saidas[16] 		:= BYTE_TO_UDINT(fbCanRxId1A00AF03.oData[0]);	// Ventilador_4_SH
+	Saidas[17] 		:= BYTE_TO_UDINT(fbCanRxId1A00AF03.oData[1]);	// Ventilador_5_SH	
+	Saidas[18]	 	:= BYTE_TO_UDINT(fbCanRxId1A00AF03.oData[2]);	// Ventilador_1_SA
+	Saidas[19]	 	:= BYTE_TO_UDINT(fbCanRxId1A00AF03.oData[3]);	// Ventilador_2_SA
+	Saidas[20]		:= BYTE_TO_UDINT(fbCanRxId1A00AF03.oData[4]);	// Ventilador_3_SA
+	Saidas[21]		:= BYTE_TO_UDINT(fbCanRxId1A00AF03.oData[5]);	// Ventilador_4_SA
+	Saidas[22]		:= BYTE_TO_UDINT(fbCanRxId1A00AF03.oData[6]);	// Ventilador_5_SA
+	//ag16Ventilador_3_SH		:= BYTE_TO_UDINT(fbCanRxId1A00AF03.oData[7]);	// Ventilador_3_SH
+			
+ELSIF fbCanRxId1A00AF03.oCanTimeout THEN												(* If timeout flag is enabled set the label value to 0 *)
+	Saidas[16] 		:= 0;
+	Saidas[17]		:= 0;	
+	Saidas[18]		:= 0;
+	Saidas[19]		:= 0;
+	Saidas[20]		:= 0;
+	Saidas[21]	   	:= 0;
+	Saidas[22]		:= 0;
+	//ag16Ventilador_3_SH		:= 0;
+END_IF
+
+// --------------------------------------------------------------------------------------------------------------------------------------
+// ______________________________________________________ E N T R A D A S _______________________________________________________________
+// ______________________________________________________________________________________________________________________________________
+// ______________________________________________________________________________________________________________________________________
+
+fbCanRxId1A02AF01(	iCAN				:= ADR(GVL.gCan1),  						(* Structure for sending / receiving CAN messages *)
+					iCanId				:= 16#1A02AF01,								(* CAN Id of receiving message *) 
+					iCanIdExtended		:= TRUE,  									(* Standard CAN Frame *)
+					iTimeoutLimit		:= T#500MS,									(* Timeout after 500ms - Flag will be set *) 
+					oByteCount			=> , 
+					oData				=> , 
+					oNewData			=> , 
+					oCanTimeout			=> , 
+					oReceiverId			=> , 
+					oTooManyReceivers	=> );	
+
+IF (fbCanRxId1A02AF01.oNewData) THEN													(* If new CAN data is available *)
+	Analogicas[0]	:= BYTE_TO_UDINT(fbCanRxId1A02AF01.oData[0]);	// TEMP. TANQ. RESERVATORIO
+	Analogicas[1] 	:= BYTE_TO_UDINT(fbCanRxId1A02AF01.oData[1]);	// TEMPERATURA DO MOTOR	
+	Analogicas[2] 	:= BYTE_TO_UDINT(fbCanRxId1A02AF01.oData[2]);	// Freio do Caminhao ESQUERDO
+	Analogicas[3] 	:= BYTE_TO_UDINT(fbCanRxId1A02AF01.oData[3]);	// Freio do Caminhao DIREITO
+	Analogicas[4]	:= BYTE_TO_UDINT(fbCanRxId1A02AF01.oData[4]);	// Freio do Caminhao ESTACIONARIO
+	Analogicas[5]	:= BYTE_TO_UDINT(fbCanRxId1A02AF01.oData[5]);	// Freio do PRANCHA ESQUERDO
+	Analogicas[6]	:= BYTE_TO_UDINT(fbCanRxId1A02AF01.oData[6]);	// Freio do PRANCHA DIREITO
+	Analogicas[7]	:= BYTE_TO_UDINT(fbCanRxId1A02AF01.oData[7]);	// Freio do PRANCHA ESTACIONARIO
+			
+ELSIF fbCanRxId1A02AF01.oCanTimeout THEN												(* If timeout flag is enabled set the label value to 0 *)
+	Analogicas[0] 	:= 0;
+	Analogicas[1]	:= 0;	
+	Analogicas[2]	:= 0;
+	Analogicas[3]	:= 0;
+	Analogicas[4]  	:= 0;
+	Analogicas[5]  	:= 0;
+	Analogicas[6]	:= 0;
+	Analogicas[7]	:= 0;
+END_IF // End 1A02AF01
+// --------------------------------------------------------------------------------------------------------------------------------------
+// ___________________________________________________ ID: 1A02AF02 _____________________________________________________________________
+
+fbCanRxId1A02AF02(	iCAN				:= ADR(GVL.gCan1),  						(* Structure for sending / receiving CAN messages *)
+					iCanId				:= 16#1A02AF02,								(* CAN Id of receiving message *) 
+					iCanIdExtended		:= TRUE,  									(* Standard CAN Frame *)
+					iTimeoutLimit		:= T#500MS,									(* Timeout after 500ms - Flag will be set *) 
+					oByteCount			=> , 
+					oData				=> , 
+					oNewData			=> , 
+					oCanTimeout			=> , 
+					oReceiverId			=> , 
+					oTooManyReceivers	=> );	
+
+IF (fbCanRxId1A02AF02.oNewData) THEN													(* If new CAN data is available *)
+	Analogicas[8]	:= BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[0]);	// Cilindro da Prancha Esquerdo
+	Analogicas[9] 	:= BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[1]);	// Cilindro da Prancha Direito	
+	Analogicas[10] 	:= BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[2]);	// TRANSDUTOR DE VAZÃO
+	
+	Digitais[0] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[3]) AND 1) > 0;;		// SENSOR NIVEL 1 (Óleo)
+	Digitais[1] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[3]) AND 2) > 0;;		// SENSOR NIVEL 2 (Óleo)
+	Digitais[2] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[3]) AND 4) > 0;;		// SENSOR NIVEL 3 (Óleo)
+	Digitais[3] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[3]) AND 8) > 0;;		// SENSOR NIVEL 4 (Óleo)
+	Digitais[4] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[3]) AND 16) > 0;;		// SENSOR NIVEL 5 (Óleo)
+	Digitais[5] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[3]) AND 32) > 0;;		// SENSOR NIVEL 6 (Óleo)
+	Digitais[6] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[3]) AND 64) > 0;;		// SENSOR FILTRO SUJO 1
+	Digitais[7] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[3]) AND 128) > 0;;	// SENSOR FILTRO SUJO 2
+	
+	Digitais[8] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[4]) AND 1) > 0;;		// SENSOR FILTRO SUJO 3
+	Digitais[9] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[4]) AND 2) > 0;;		// Elevador de serviço Esquerdo em Uso
+	Digitais[10] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[4]) AND 4) > 0;;		// Elevador de serviço Direito em Uso
+	Digitais[11] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[4]) AND 8) > 0;;		// Patola Esquerda Fora de posição
+	Digitais[12] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[4]) AND 16) > 0;;		// Patola Direita Fora de posição
+	Digitais[13] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[4]) AND 32) > 0;;		// Prancha_Sobe
+	Digitais[14] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[4]) AND 64) > 0;;		// Prancha_Desce
+	Digitais[15] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[4]) AND 128) > 0;;	// Modo Translado
+	
+	Digitais[16] 	:= (BYTE_TO_UDINT(fbCanRxId1A02AF02.oData[5]) AND 1) > 0;;		// Modo CARGA/DESCARGA
+			
+ELSIF fbCanRxId1A02AF02.oCanTimeout THEN												(* If timeout flag is enabled set the label value to 0 *)
+	Analogicas[0] 	:= 0;
+	Analogicas[1]	:= 0;	
+	Analogicas[2]	:= 0;
+	//Analogicas[3]	:= 0;
+	//Analogicas[4] := 0;
+	//Analogicas[5] := 0;
+	//Analogicas[6]	:= 0;
+	//Analogicas[7]	:= 0;
+END_IF // End 1A02AF02
+// --------------------------------------------------------------------------------------------------------------------------------------
